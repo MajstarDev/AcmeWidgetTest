@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Acme Widget Co</title>
+	<link rel="stylesheet" href="styles/styles.css">
+	<link rel="stylesheet" href="styles/normalize.css">
+</head>
+
+<body>
+	<div class="main">
+		<div class="header">
+			<div><h1>Acme Widget Co</h1></div>
+			<div>Your Basket is empty</div>
+		</div>
+		<div class="msg-block">
+			Buy ... to get FREE shipping!	
+		</div>
+		<div class="products-container">
+			{% for product in products %}
+			<div class="product">
+				{#<div class="offer">Buy one, get the second half price!</div>#}
+				<div class="product-name">{{product.getName}}</div>
+				<div class="price">${{product.getPrice}}</div>
+				<a href="add/{{product.getCode}}" class="add-button">Add to Basket</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+
+</html>

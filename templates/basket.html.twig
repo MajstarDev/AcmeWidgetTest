@@ -35,10 +35,10 @@
 
 	{% if basket|length > 0 %}
 
-	<center>	
+	<div class="main">	
 	<h2>Your Basket</h2>
 
-	<table border=1 cellpadding=5>
+	<table>
 		<tr>
 			<td>Code</td>
 			<td>Product</td>
@@ -51,7 +51,7 @@
 		{% for product in basket %}
 		<tr>
 			<td>{{product.code}}</td>
-			<td>{{product.name}}</td>
+			<td class="f-bold">{{product.name}}</td>
 			<td align=right>${{product.price}}</td>
 			<td align=right>{{product.qty}}</td>
 			<td align=right>${{product.subtotalFull|number_format(2, '.', ',')}}</td>
@@ -64,6 +64,7 @@
 		<tr>
 			<td colspan=6 align=right>Subtotal</td>
 			<td>${{totals.subtotal|number_format(2, '.', ',')}}</td>
+			<td rowspan=3>&nbsp;</td>
 		</tr>
 		<tr>
 			<td colspan=6 align=right>Delivery Cost</td>
@@ -71,10 +72,10 @@
 		</tr>
 		<tr>
 			<td colspan=6 align=right><b>Total</b></td>
-			<td><b>${{totals.total|number_format(2, '.', ',')}}</b></td>
+			<td class="f-bold">${{totals.total|number_format(2, '.', ',')}}</td>
 		</tr>
 	</table>
-	</center>
+	</div>
 
 	{% endif %}
 

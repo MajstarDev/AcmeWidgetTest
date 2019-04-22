@@ -7,7 +7,25 @@ a {text-decoration:none;}
   max-width: 1000px;
   margin: 2rem auto;
 }
-.main > div {
+.f-bold {
+  font-weight: 600;
+}
+table {
+  width: 100%;
+  background: #3891CF;
+  
+}
+table td {
+  background: #fff;
+  padding:10px;
+}
+
+table td a {
+  background-color: tomato;
+  padding: 5px 15px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 0.9rem; 
 }
 
 .header {
@@ -49,7 +67,6 @@ a {text-decoration:none;}
   background: #DF2753;
   color: #ffffff;
   font-size: 0.8rem;
-
 }
 
 .products-container .product .product-name {
@@ -93,6 +110,7 @@ a {text-decoration:none;}
   /*background-image: linear-gradient(to right, #3ab5b0 0%, #3d99be 31%, #56317a 100%);*/
   background-image: linear-gradient(60deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%);
 }
+
 
 @media screen and (max-width: 1020px) {
   .main {

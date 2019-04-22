@@ -7,30 +7,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Classes\Basket;
 
-use Symfony\Component\HttpFoundation\Session\Session; # delete
-
 class BasketController extends AbstractController
 {
-	private $basket;
-
-	public function __construct()
-	{
-		$this->basket = new Basket();
-	}	
-
 	/**
 	* @Route("/")
 	*/
 	public function viewBasket()
 	{
-		$session = new Session();
-		print_r($session->get('items'));
+		$repo = $this->getDoctrine()->getRepository(\App\Entity\Product::class);
 
-		$repository = $this->getDoctrine()->getRepository(\App\Entity\Product::class);
+		$basket = new Basket($this->getDoctrine());
+		$basket->recalculateEverything();
 
 		return $this->render('basket.html.twig', [
-			'products' => $repository->findAll(),
-			'basket' => $this->basket
+			'products' => $repo->findAll(),
+			'basket' => $basket->getItemsExtended(),
+			'totals' => $basket->getTotals(),
+			'freeDelivery' => $basket->getFreeDeliveryThreshold()
 		]);
 	}
 
@@ -39,7 +32,18 @@ class BasketController extends AbstractController
 	*/
 	public function addToBasket($code)
 	{
-		$this->basket->addItem($code);
+		$basket = new Basket($this->getDoctrine());
+		$basket->addItem($code);
+		return $this->redirect('/');
+	}
+
+	/**
+	* @Route("/remove/{code}")
+	*/
+	public function deleteFromBasket($code)
+	{
+		$basket = new Basket($this->getDoctrine());
+		$basket->removeItem($code);
 		return $this->redirect('/');
 	}
 }

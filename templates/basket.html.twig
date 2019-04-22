@@ -11,10 +11,14 @@
 	<div class="main">
 		<div class="header">
 			<div><h1>Acme Widget Co</h1></div>
-			<div>Your Basket is empty</div>
+			<div>{% if basket|length == 0 %}Your Basket is empty{% endif %}</div>
 		</div>
 		<div class="msg-block">
-			Buy ... to get FREE shipping!	
+			{% if totals.delivery == 0 %}
+				Congratulations! You got free delivery!
+			{% else %}
+				You are ${{ (freeDelivery - totals.subtotal)|number_format(2, '.', ',') }} away from FREE delivery!
+			{% endif %}
 		</div>
 		<div class="products-container">
 			{% for product in products %}
@@ -27,6 +31,53 @@
 			{% endfor %}
 		</div>
 	</div>
+
+
+	{% if basket|length > 0 %}
+
+	<center>	
+	<h2>Your Basket</h2>
+
+	<table border=1 cellpadding=5>
+		<tr>
+			<td>Code</td>
+			<td>Product</td>
+			<td>Price</td>
+			<td>Qty</td>
+			<td>Item Subtotal (Full)</td>
+			<td>Discount</td>
+			<td>Item Subtotal (Discounted)</td>
+			<td>&nbsp;</td>
+		{% for product in basket %}
+		<tr>
+			<td>{{product.code}}</td>
+			<td>{{product.name}}</td>
+			<td align=right>${{product.price}}</td>
+			<td align=right>{{product.qty}}</td>
+			<td align=right>${{product.subtotalFull|number_format(2, '.', ',')}}</td>
+			<td align=right>{% if product.discount > 0 %}{{product.discount}}{% endif %}</td>
+			<td align=right>${{product.subtotalDiscounted|number_format(2, '.', ',')}}</td>
+			<td><a href="/remove/{{product.code}}">Remove</a>
+		</tr>		
+		{% endfor %}
+
+		<tr>
+			<td colspan=6 align=right>Subtotal</td>
+			<td>${{totals.subtotal|number_format(2, '.', ',')}}</td>
+		</tr>
+		<tr>
+			<td colspan=6 align=right>Delivery Cost</td>
+			<td>{% if totals.delivery == 0 %}FREE{% else %}${{totals.delivery|number_format(2, '.', ',')}}{% endif %}</td>
+		</tr>
+		<tr>
+			<td colspan=6 align=right><b>Total</b></td>
+			<td><b>${{totals.total|number_format(2, '.', ',')}}</b></td>
+		</tr>
+	</table>
+	</center>
+
+	{% endif %}
+
 </body>
 
 </html>

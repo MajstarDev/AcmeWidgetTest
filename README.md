@@ -20,10 +20,22 @@ Installation should be as simple as:
 
 Enjoy!
 
+Here's how the app should look when installed:
+![screenshot](https://github.com/MajstarDev/AcmeWidgetTest/blob/master/screenshot.png)
+
 ### Testing
 
 The app is reading products from the DB so if you want to add more products or update existing products, simply add/modify rows in the `product` DB table. 
 The same is true for delivery charges & special offer (discount) calculation.
+
+### Reviewing code
+
+You might want to look at the following files:
+1. src/Controller/BasketController.php
+2. src/Classes/Basket.php
+3. src/Classes/Calculators/DeliveryCalculator.php
+4. src/Classes/Calculators/ItemDiscountCalculator.php
+5. templates/basket.html.twig
 
 ## Authors
 
